@@ -1,0 +1,23 @@
+from flask import Flask, request, jsonify
+import json
+
+app = Flask(__name__)
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    data = request.get_json()
+    location = data['location']
+    river_level = float(data['riverLevel'])
+    weather_data = data['weatherData']
+
+    # Dummy prediction logic (replace with real predictive model)
+    prediction = "No flood expected"
+    if river_level > 5.0:
+        prediction = "High risk of flooding"
+    elif river_level > 3.0:
+        prediction = "Moderate risk of flooding"
+
+    return jsonify({'prediction': prediction})
+
+if __name__ == '__main__':
+    app.run(debug=True)
